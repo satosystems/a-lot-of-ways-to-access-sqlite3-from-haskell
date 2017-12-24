@@ -15,3 +15,10 @@ Please check the following source code and documents.
 - [src/direct-sqlite.hs](src/direct-sqlite.hs)
 - [direct-sqlite: Low-level binding to SQLite3. Includes UTF8 and BLOB support.](http://hackage.haskell.org/package/direct-sqlite)
 
+## Howto use sqlite-simple
+
+Please check the following source code and documents.
+
+- [src/sqlite-simple.hs](src/sqlite-simple.hs)
+- [sqlite-simple: Mid-Level SQLite client library](http://hackage.haskell.org/package/sqlite-simple)
+
