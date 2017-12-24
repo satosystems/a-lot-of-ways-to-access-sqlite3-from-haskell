@@ -1,5 +1,9 @@
 # Changelog for a-lot-of-ways-to-access-sqlite3-from-haskell
 
+## v0.1.3.0
+
+Added to how to use 'sqlite-simple' library.
+
 ## v0.1.2.1
 
 Fix create table sql of 'direct-sqlite' sample.
