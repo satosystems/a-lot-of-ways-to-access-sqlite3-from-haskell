@@ -17,7 +17,7 @@ main = do
   case edb of
     Left (_, Utf8 msg) -> putStrLn $ decode (BI.unpack msg)
     Right db -> do
-      _ <- exec db $ Utf8 "create table file (path text not null primary key, size integer, digest text);"
+      _ <- exec db $ Utf8 "create table file (path text primary key, size integer, digest text);"
       _ <- exec db $ Utf8 "insert into file values ('/foo.txt', 100, null);"
       _ <- exec db $ Utf8 "insert into file values ('/bar.txt', null, null);"
       _ <- exec db $ Utf8 "insert into file values ('/baz.txt', 100, null);"
