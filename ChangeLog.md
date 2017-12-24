@@ -1,3 +1,6 @@
 # Changelog for a-lot-of-ways-to-access-sqlite3-from-haskell
 
-## Unreleased changes
+## v0.1.1.0
+
+Added to how to use 'persistent-sqlite' library.
+
