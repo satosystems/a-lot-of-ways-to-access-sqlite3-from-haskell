@@ -13,8 +13,8 @@ import Database.Persist.Sqlite ( (=.)
                                , Filter
                                , SelectOpt(Asc)
                                , deleteWhere
-                               , insert
-                               , runMigration
+                               , insert_
+                               , runMigrationSilent
                                , runSqlite
                                , selectList
                                , update
@@ -32,6 +32,7 @@ share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persistLowerCase|
     size Int Maybe
     digest String Maybe
     Path path
+    Primary path
     deriving Show
 |]
 
@@ -39,11 +40,11 @@ share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persistLowerCase|
 main :: IO ()
 main = runSqlite "persistent-sqlite.sqlite3" $ do
   let dummySize = Just 100
-  runMigration migrateAll
+  runMigrationSilent migrateAll
 
-  _ <- insert $ File "/foo.txt" dummySize Nothing
-  _ <- insert $ File "/bar.txt" Nothing Nothing
-  _ <- insert $ File "/baz.txt" dummySize Nothing
+  insert_ $ File "/foo.txt" dummySize Nothing
+  insert_ $ File "/bar.txt" Nothing Nothing
+  insert_ $ File "/baz.txt" dummySize Nothing
 
   fileList <- selectList [FileSize ==. dummySize] [Asc FileId]
   mapM_ updateDigest fileList
