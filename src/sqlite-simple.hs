@@ -22,16 +22,16 @@ instance ToRow File where
 main :: IO ()
 main = do
   conn <- open "sqlite-simple.sqlite3"
-  execute_ conn "create table file (path text primary key, size integer, digest text);"
-  execute conn "insert into file values (?, ?, ?);" (File "/foo.txt" (Just 100) Nothing)
-  execute conn "insert into file values (?, ?, ?);" (File "/bar.txt" Nothing Nothing)
-  execute conn "insert into file values (?, ?, ?);" (File "/baz.txt" (Just 100) Nothing)
+  execute_ conn "create table file (path text primary key, size integer, digest text)"
+  execute conn "insert into file values (?, ?, ?)" (File "/foo.txt" (Just 100) Nothing)
+  execute conn "insert into file values (?, ?, ?)" (File "/bar.txt" Nothing Nothing)
+  execute conn "insert into file values (?, ?, ?)" (File "/baz.txt" (Just 100) Nothing)
   rs1 <- query conn "select * from file where size = ?" (Only (100 :: Integer)) :: IO [File]
   mapM_ (\(File path _ _) -> updateDigest conn path) rs1
   rs2 <- query conn "select * from file where digest = ?" (Only ("349a0426747b3b8c3583664a0ca66b6f" :: String)) :: IO [File]
   mapM_ (\(File path _ _) -> putStrLn path) rs2
-  execute_ conn "drop table file;"
+  execute_ conn "drop table file"
   close conn
  where
-  updateDigest conn path = execute conn "update file set digest = ? where path = ?;" ("349a0426747b3b8c3583664a0ca66b6f" :: String, path)
+  updateDigest conn path = execute conn "update file set digest = ? where path = ?" ("349a0426747b3b8c3583664a0ca66b6f" :: String, path)
 
