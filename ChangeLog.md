@@ -1,5 +1,9 @@
 # Changelog for a-lot-of-ways-to-access-sqlite3-from-haskell
 
+## v0.1.3.2
+
+Catch exception when create table twice on sqlite-simple.
+
 ## v0.1.3.1
 
 Remove unnecessary semicolon from SQL.

@@ -1,7 +1,9 @@
 {-# LANGUAGE OverloadedStrings #-}
 
+import Control.Exception.Safe
 import Database.SQLite.Simple ( FromRow(..)
                               , Only(..)
+                              , SQLError
                               , ToRow(..)
                               , close
                               , execute
@@ -22,7 +24,7 @@ instance ToRow File where
 main :: IO ()
 main = do
   conn <- open "sqlite-simple.sqlite3"
-  execute_ conn "create table file (path text primary key, size integer, digest text)"
+  (execute_ conn "create table file (path text primary key, size integer, digest text)") `catch` (const $ return () :: SQLError -> IO ())
   execute conn "insert into file values (?, ?, ?)" (File "/foo.txt" (Just 100) Nothing)
   execute conn "insert into file values (?, ?, ?)" (File "/bar.txt" Nothing Nothing)
   execute conn "insert into file values (?, ?, ?)" (File "/baz.txt" (Just 100) Nothing)
