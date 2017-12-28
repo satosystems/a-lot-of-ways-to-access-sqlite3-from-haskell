@@ -57,5 +57,6 @@ executables:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
+    - safe-exceptions
     - sqlite-simple
 
